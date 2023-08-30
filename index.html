@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client-Side Encryption</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script>
+</head>
+<body>
+    <div>
+        <label for="key">Key:</label>
+        <input type="text" id="key" placeholder="Enter a key">
+    </div>
+
+    <div>
+        <label for="plainText">Unencrypted Text:</label>
+        <textarea id="plainText" rows="4" cols="50"></textarea>
+    </div>
+
+    <div>
+        <label for="encryptedText">Encrypted Text:</label>
+        <textarea id="encryptedText" rows="4" cols="50"></textarea>
+    </div>
+
+    <button onclick="encryptText()">Encrypt</button>
+    <button onclick="decryptText()">Decrypt</button>
+
+    <script>
+        function encryptText() {
+            let key = document.getElementById("key").value;
+            let plainText = document.getElementById("plainText").value;
+
+            let encrypted = CryptoJS.AES.encrypt(plainText, key).toString();
+            document.getElementById("encryptedText").value = encrypted;
+        }
+
+        function decryptText() {
+            let key = document.getElementById("key").value;
+            let encryptedText = document.getElementById("encryptedText").value;
+
+            let decrypted = CryptoJS.AES.decrypt(encryptedText, key).toString(CryptoJS.enc.Utf8);
+            document.getElementById("plainText").value = decrypted;
+        }
+    </script>
+</body>
+</html>
